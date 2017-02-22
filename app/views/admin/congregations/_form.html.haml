@@ -1,0 +1,7 @@
+= simple_form_for [:admin, @congregation], :html => { class: "vertical_form"  } do |f|
+  = f.input :name, label: "Наименование", autofocus: true
+  = f.input :city_id, label: "Город", collection: City.order(:name), label_method: :name, value_method: :id, include_blank: false
+  = f.input :number, label: "Номер"
+
+  = f.button :submit, "Сохранить", class: 'btn btn-primary'
+  = link_to "Отмена", admin_congregations_path, class: "btn btn-default"

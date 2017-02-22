@@ -1,0 +1,13 @@
+#managing_table
+  = render :partial => "managing_table"
+
+:javascript
+  $(":input").change(function() {
+    var vac_id = $(this).attr('id')
+    var vol_id = $(this).val()
+    $.ajax({
+      type: "POST",
+      url: '/admin/vacancies/' + vac_id + '/add_volunteer?volunteer_id=' + vol_id,
+      remote: "true",
+    });
+  });

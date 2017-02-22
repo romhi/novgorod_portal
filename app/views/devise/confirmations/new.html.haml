@@ -1,0 +1,14 @@
+#new_user_registration(style="width: 600px; margin: 100px auto")
+  .panel.panel-info
+    .panel-heading
+      Повторная отправка сообщения для активации
+    .panel-body
+      = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+        = f.error_notification
+        = f.full_error :confirmation_token
+        .form-inputs
+          = f.input :email, required: true, autofocus: true, input_html: { style: "margin-bottom: 15px;" }
+        .col-sm-offset-3.col-sm-9
+          = f.button :submit, "Отправить", :class => "btn btn-default"
+    .panel-footer
+      = render "devise/shared/links"

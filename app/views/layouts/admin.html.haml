@@ -1,0 +1,19 @@
+!!!
+%html
+  %head
+    %meta(charset="utf-8")
+    %title Sample_app
+    = stylesheet_link_tag    'admin', media: 'all'
+    = javascript_include_tag 'application'
+    = favicon_link_tag 'favicon.png'
+    = csrf_meta_tags
+  %body
+    = render partial: 'layouts/admin_main_menu'
+    -#= render partial: 'shared/top_bar'
+    -#= render partial: 'shared/flash_messages'
+    -#= render partial: 'shared/layout_js'
+    .container
+      .page-content
+        .admin
+          = render partial: "layouts/flash_messages"
+          = yield

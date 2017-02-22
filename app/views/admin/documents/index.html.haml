@@ -1,0 +1,24 @@
+.top-right-actions
+  = link_to "Добавить", new_admin_document_path, class: "btn btn-primary"
+%h1 Документы (#{@documents.count})
+
+%table.table.table-bordered.table-condensed.table-hover
+  %tr
+    %th.td-18
+      \#
+    %th.td-18
+    %th
+      Наименование
+    %th.td-18
+
+  - @documents.each_with_index do |document, index|
+
+    %tr
+      %td.td-18
+        = index + 1
+      %td.td-18
+        = admin_edit_link(document)
+      %td
+        = link_to document.title, admin_document_path(document)
+      %td.td-18
+        = delete_trash_link admin_document_path(document)

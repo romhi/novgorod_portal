@@ -1,0 +1,14 @@
+%p
+  Здравствуйте, #{@resource.first_name}!
+%p
+  Для вас создана учетная запись на сайте нашем сайте!
+%p
+  Используйте для входа на сайт
+  %br
+  Логин: #{@resource.email}
+  %br
+  Пароль: #{@resource.password}
+%p
+  Пожалуйста, перейдите по этой ссылке, чтобы подтвердить свою учетную запись:
+%p
+  = link_to 'Подтвердить', confirmation_url(@resource, confirmation_token: @token)

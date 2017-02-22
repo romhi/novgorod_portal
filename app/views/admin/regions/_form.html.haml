@@ -1,0 +1,5 @@
+= simple_form_for [:admin, @region], :html => { class: "vertical_form" } do |f|
+  = f.input :name, label: "Наименование", autofocus: true
+
+  = f.button :submit, "Сохранить", class: 'btn btn-primary'
+  = link_to "Отмена", admin_regions_path, class: "btn btn-default"

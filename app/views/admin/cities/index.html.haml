@@ -1,0 +1,28 @@
+.top-right-actions
+  = link_to "Добавить", new_admin_city_path, class: "btn btn-primary"
+%h1 Города (#{@cities.count})
+
+%table.table.table-bordered.table-condensed.table-hover
+  %tr
+    %th.td-18
+      \#
+    %th.td-18
+    %th
+      Название
+    %th
+      Область
+    %th.td-18
+
+  - @cities.each_with_index do |city, index|
+
+    %tr
+      %td.td-18
+        = index + 1
+      %td.td-18
+        = admin_edit_link(city)
+      %td
+        = city.name
+      %td
+        = city.region.name
+      %td.td-18
+        = delete_trash_link admin_city_path(city)

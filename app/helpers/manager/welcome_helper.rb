@@ -1,0 +1,2 @@
+module Manager::WelcomeHelper
+end

@@ -1,0 +1,13 @@
+#new_user_registration(style="width: 600px; margin: 100px auto")
+  .panel.panel-info
+    .panel-heading
+      Забыли пароль?
+    .panel-body
+      = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+        = f.error_notification
+        .form-inputs
+          = f.input :email, required: true, autofocus: true, input_html: { style: "margin-bottom: 15px;" }
+        .col-sm-offset-3.col-sm-9
+          = f.button :submit, "Выслать мне инструкции для сброса пароля"
+    .panel-footer
+      = render "devise/shared/links"

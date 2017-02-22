@@ -1,0 +1,7 @@
+.top-right-actions
+  = link_to "< Документы", :back, class: "btn btn-default"
+  = link_to 'Напечатать', print_document_manager_document_path{@delivery_inquiry.id}, class: "btn btn-primary", target: :blank
+%h1
+  = @document.title
+%div
+  = @document.text.html_safe

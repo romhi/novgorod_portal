@@ -1,0 +1,12 @@
+%div(style="width: 600px; margin: 100px auto")
+  .panel.panel-info
+    .panel-heading
+      Вход
+    .panel-body
+      = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { id: "dealer_form", class: "vertical_form", role: "form" }) do |f|
+        = f.input :email, label: "E-mail", input_html: {autofocus: true}
+        = f.input :password, label: "Пароль"
+        = f.input :remember_me, label: "Запомнить меня", as: :boolean, input_html: { style: "width: 16px" } if devise_mapping.rememberable?
+        = f.submit "Войти", :class => "btn btn-primary"
+    .panel-footer
+      = render "devise/shared/links"

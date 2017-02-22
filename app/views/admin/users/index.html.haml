@@ -1,0 +1,58 @@
+.top-right-actions
+  = simple_form_for :user, url: "/admin/users", method: :get, html: { style: "display: inline-block;", class: "form-inline" } do |f|
+    = f.input :part, label: false, input_html: { name: "part", value: "#{params[:part]}" }
+    = f.submit "Найти", class: "btn btn-default"
+  = link_to "Добавить", new_admin_user_path, class: "btn btn-primary"
+
+%h1 Пользователи (#{@users.count})
+
+%table.table.table-bordered
+  %tr
+    %th.td-18
+      \#
+    %th.td-18
+    %th
+      Фамилия
+    %th
+      Имя
+    %th
+      Почта
+    %th
+      Телефон
+    %th
+      Город
+    %th
+      Собрание
+    %th.td-18
+      Роль
+    %th.td-18
+      = content_tag(:span, "АК", title: "Пользователь прошел активацию")
+    %th.td-18
+
+  - @users.each_with_index do |user, index|
+    %tr
+      %td
+        = index + 1
+      %td
+        = edit_link [:edit,:admin , user]
+      %td
+        = user.last_name
+      %td
+        = user.first_name
+      %td.td-center
+        = user.email
+      %td
+        = user.phone
+      %td
+        = user.congregation.try(:city).try(:name) || "Не определено"
+      %td
+        = user.congregation.try(:name) || "Не определено"
+      %td
+        = role(user)
+      %td
+        = confirm_status(user)
+      %td
+        = delete_link [:admin, user]
+
+
+= will_paginate @users, :renderer => BootstrapPagination::Rails

@@ -1,0 +1,20 @@
+%nav.navbar.navbar-default.navbar-fixed-top{role: "navigation"}
+  .container
+    .navbar-header
+      = link_to "Sample_app", "/", class: "navbar-brand", title: "Romhi"
+    -#= link_to image_tag('logo.png', style: "margin-top: -14px; width: 100px;"), "/", class: "navbar-brand", title: "Aza Fruit"
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav
+        - if user_signed_in?
+          %li.dropdown
+            = link_to "#", :class => "dropdown-toggle", "data-toggle" => "dropdown" do
+              Справочники
+              %b.caret
+            %ul.dropdown-menu
+              %li= link_to "1", "#"
+              %li= link_to "2", "#"
+              %li= link_to "3", "#"
+              %li= link_to "4" , "#"
+              %li= link_to "5", "#"
+
+      = render :partial => "layouts/user_bar"

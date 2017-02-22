@@ -1,0 +1,5 @@
+%h2 Приветствую всех на моем сайте!
+
+%div
+  = link_to "Вход", new_user_session_path, class: "btn-lg btn-primary" unless current_user
+

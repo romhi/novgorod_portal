@@ -1,0 +1,9 @@
+%h1 Документы (#{@documents.count})
+
+- @documents.each_with_index do |document, index|
+
+  %tr
+    %td.td-18
+      -#= index + 1
+    %td
+      = link_to document.title, manager_document_path(document), class: "btn btn-primary"

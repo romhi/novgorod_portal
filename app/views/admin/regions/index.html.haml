@@ -1,0 +1,24 @@
+.top-right-actions
+  = link_to "Добавить", new_admin_region_path, class: "btn btn-primary"
+%h1 Области (#{@regions.count})
+
+%table.table.table-bordered.table-condensed.table-hover
+  %tr
+    %th.td-18
+      \#
+    %th.td-18
+    %th
+      Наименование
+    %th.td-18
+
+  - @regions.each_with_index do |region, index|
+
+    %tr
+      %td.td-18
+        = index + 1
+      %td.td-18
+        = admin_edit_link(region)
+      %td
+        = region.name
+      %td.td-18
+        = delete_trash_link admin_region_path(region)

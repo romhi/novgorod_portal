@@ -1,0 +1,19 @@
+%h1 Редактирование пользователя
+
+= simple_form_for [:admin, @user], :html => { :id => "user_form", :class => 'vertical-form', :role => "form", autocomplete: "off" } do |f|
+  = f.input :email, label: "Почта"
+  = f.input :last_name, label: "Фамилия"
+  = f.input :first_name, label: "Имя"
+  = f.input :phone, label: "Телефон"
+  = f.input :congregation_id, label: "Собрание", collection: Congregation.order(:name), label_method: :name, value_mathod: :id, include_blank: false
+  = f.input :manager, label: "Менеджер", as: :boolean
+
+  = f.submit "Сохранить", class: "btn btn-primary"
+  = link_to "Отмена", admin_users_path, class: "btn btn-default"
+
+
+:javascript
+
+  $(document).ready(function($){
+    $("#user_phone").mask("(999) 999-9999");
+  });

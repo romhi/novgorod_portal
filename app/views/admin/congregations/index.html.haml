@@ -1,0 +1,36 @@
+.top-right-actions
+  = link_to "Добавить", new_admin_congregation_path, class: "btn btn-primary"
+%h1 Собрания (#{@congregations.count})
+
+%table.table.table-bordered.table-condensed.table-hover
+  %tr
+    %th.td-18
+      \#
+    %th.td-18
+    %th
+      Город
+    %th
+      Наименование
+    %th
+      Номер
+    %th.td-18.td-nowrap
+      Д-цы
+    %th.td-18
+
+  - @congregations.each_with_index do |congregation, index|
+
+    %tr(style="#{'background-color: pink' if congregation.volunteers.empty?}")
+      %td.td-18
+        = index + 1
+      %td.td-18
+        = admin_edit_link(congregation)
+      %td
+        = congregation.city.name
+      %td
+        = congregation.name
+      %td
+        = congregation.number
+      %td.pointer.td-center(title="Кол-во добровольцев")
+        = congregation.volunteers.count
+      %td.td-18
+        = delete_trash_link admin_congregation_path(congregation)

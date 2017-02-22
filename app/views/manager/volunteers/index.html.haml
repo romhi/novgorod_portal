@@ -1,0 +1,62 @@
+.top-right-actions
+  = link_to "Печать", print_manager_volunteers_path, class: "btn btn-default", target: '_blank'
+  = link_to "Добавить", new_manager_volunteer_path, class: "btn btn-primary"
+
+%h1 Добровольцы собрания #{current_user.congregation.name} (#{@volunteers.count})
+
+%table.table.table-bordered
+  %tr
+    %th.td-18
+      \#
+    %th.td-18
+    %th
+      Сведения
+    %th
+      Время
+    %th
+      08
+    %th
+      17
+    %th
+      УЛ
+    %th
+      Авт
+    %th
+      Телефон
+    -#%th
+    -#  EMAIL
+    %th
+      Комментарии
+    %th
+      Время и место служения
+    %th.td-18
+  - @volunteers.each_with_index do |volunteer, index|
+    %tr
+      %td
+        = index + 1
+      %td
+        = edit_link [:edit,:manager , volunteer]
+      %td
+        #{volunteer.last_name} #{volunteer.first_name}
+      %td.td-nowrap
+        = convenient_time(volunteer)
+      %td.td-center.pointer(title="Будет к 8:00")
+        = yes_or_no_icon(volunteer.will_be_since_8)
+      %td.td-center.pointer(title="Будет до 17:00")
+        = yes_or_no_icon(volunteer.will_be_until_17)
+      %td.td-center.pointer(title="Может на улице")
+        = yes_or_no_icon(volunteer.outdoor)
+      %td.td-center.pointer(title="Автомобилист")
+        = yes_or_no_icon(volunteer.car)
+      %td.td-nowrap
+        = volunteer.phone
+      -#%td
+      -#  = volunteer.email
+      %td
+        = volunteer.comment
+      %td
+        = volunteer.vacancy.try(:full_info).try(:html_safe)
+      %td
+        = delete_link [:manager, volunteer]
+
+

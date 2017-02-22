@@ -1,0 +1,32 @@
+- if user_signed_in?
+  .btn-group.navbar-btn.pull-right
+    = button_tag content_tag(:i, " ", class: "fa fa-user") + " #{current_user.first_name} " + content_tag(:span, " ", class: "caret"), type: 'button', data: {"toggle" => "dropdown"}, :class => "btn btn-default dropdown-toggle"
+    %ul.dropdown-menu
+      %li
+        = link_to "Профиль", edit_user_registration_path
+      %li.divider
+      %li
+        = link_to "Выход", destroy_user_session_path, method: :delete
+  - if current_user.admin?
+    .btn-group.navbar-btn.pull-right.right-bar
+      = link_to "Новые сообщения (#{Message.new_for_admin.count || 0})", admin_messages_path, class: "btn #{Message.new_for_admin.count > 0 ? 'btn-primary' : 'btn-default'}"
+    .btn-group.navbar-btn.pull-right.right-bar(title="Количество добровольцев")
+      = link_to Volunteer.count, admin_volunteers_path, class: "btn btn-success"
+    .btn-group.navbar-btn.pull-right.right-bar(title="Количество неназначенных")
+      = link_to Volunteer.without_vacancies.count, managing_admin_vacancies_path, class: "btn btn-warning"
+    .btn-group.navbar-btn.pull-right.right-bar(title="Не хватает добровольцев")
+      = link_to Vacancy.count - Volunteer.count, admin_vacancies_path, class: "btn btn-danger"
+
+  - else
+    .btn-group.navbar-btn.right-bar.pull-right
+      = link_to "Новые сообщения (#{Message.new_for_user(current_user).count || 0})", messages_path, class: "btn #{Message.new_for_user(current_user).count > 0 ? 'btn-primary' : 'btn-default'}"
+    .btn-group.navbar-btn.pull-right.right-bar(title="Не хватает добровольцев")
+      = link_to Vacancy.count - Volunteer.count, '', class: "btn btn-danger"
+    .btn-group.navbar-btn.pull-right.right-bar(title="Общее количество добровольцев")
+      = link_to Volunteer.count, manager_volunteers_path, class: "btn btn-success"
+
+
+
+
+
+

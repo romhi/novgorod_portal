@@ -1,0 +1,16 @@
+#new_user_registration(style="width: 600px; margin: 100px auto")
+  .panel.panel-info
+    .panel-heading
+      Изменение пароля
+    .panel-body
+      = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+        = f.error_notification
+        = f.input :reset_password_token, as: :hidden
+        = f.full_error :reset_password_token
+        .form-inputs
+          = f.input :password, label: "Новый пароль", required: true, autofocus: true, input_html: { style: "margin-bottom: 15px;" }
+          = f.input :password_confirmation, label: "Повторите пароль", required: true, input_html: { style: "margin-bottom: 15px;" }
+        .col-sm-offset-3.col-sm-9
+          = f.button :submit, "Изменить мой пароль"
+    .panel-footer
+      = render "devise/shared/links"

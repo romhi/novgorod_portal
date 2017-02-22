@@ -1,0 +1,27 @@
+= javascript_include_tag 'application', 'data-turbolinks-track' => true
+= stylesheet_link_tag    'admin', media: 'all'
+.portrait
+  %h1 Добровольцы собрания #{@congregation.name}
+
+  %table.table.table-bordered(style="font-size: 11px")
+    %tr
+      %th.td-18
+      %th
+        Сведения
+      %th
+        Телефон
+      %th
+        Время и место служения
+
+    - @volunteers.each_with_index do |volunteer, index|
+      %tr
+        %td
+          = index + 1
+        %td
+          = volunteer.full_info_for_print
+        %td.td-nowrap
+          = volunteer.phone
+        %td
+          = volunteer.vacancy.try(:full_info).try(:html_safe)
+
+  = raw immediate_print

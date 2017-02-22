@@ -1,0 +1,25 @@
+= simple_form_for [:manager, @volunteer], :html => { :id => "volunteer_form", :class => 'vertical-form', :role => "form", autocomplete: "off" } do |f|
+  = f.input :last_name, label: "Фамилия"
+  = f.input :first_name, label: "Имя"
+  = f.input :age, label: "Возраст"
+  = f.input :responsibility_id, label: "Назначение", collection: Responsibility.order(:name), label_method: :name, value_mathod: :id, include_blank: false
+  = f.input :convenient_start_time, label: "Время начала служения", as: :time, hint: "Часы и минуты"
+  = f.input :convenient_end_time, label: "Время окончания служения", as: :time, hint: "Часы и минуты"
+  = f.input :will_be_since_8, label: "Приедет в 8:00", as: :boolean
+  = f.input :will_be_until_17, label: "Останется до 17:00", as: :boolean
+  = f.input :outdoor, label: "Может на улице", as: :boolean
+  = f.input :car, label: "Автомобилист", as: :boolean
+  = f.input :phone, label: "Телефон"
+  -#= f.input :email, label: "EMAIL"
+  = f.input :comment, label: "Комментарии", hint: "Напишите здесь, если брат сможет в пятницу на встрече ОП"
+
+  = f.submit "Сохранить", class: "btn btn-primary"
+  = link_to "Отмена", manager_volunteers_path, class: "btn btn-default"
+
+:javascript
+
+  $(document).ready(function(){
+
+    $("#volunteer_phone").mask("(999) 999-9999");
+
+  });

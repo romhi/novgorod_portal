@@ -1,0 +1,11 @@
+%nav.navbar.navbar-default.navbar-fixed-top{role: "navigation"}
+  .container.grey-white
+    .navbar-header
+      = link_to "Главная", manager_welcome_index_path, class: "navbar-brand", title: "Sample_app"
+      = link_to "Добровольцы", manager_volunteers_path, class: "navbar-brand", title: "Sample_app"
+      = link_to "Документы", manager_documents_path, class: "navbar-brand", title: "Sample_app"
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav
+        %li.dropdown
+
+      = render :partial => "layouts/user_bar"

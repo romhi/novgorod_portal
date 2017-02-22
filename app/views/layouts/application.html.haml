@@ -1,0 +1,16 @@
+!!!
+%html
+  %head
+    %meta(charset="utf-8")
+    %title novgorod_portal
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    = render partial: 'layouts/default_main_menu'
+    .container
+      .page-content
+        .application
+          = render partial: "layouts/flash_messages"
+          = yield
+

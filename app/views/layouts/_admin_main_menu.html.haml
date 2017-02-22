@@ -1,0 +1,35 @@
+%nav.navbar.navbar-inverse.navbar-fixed-top{role: "navigation"}
+  .container
+    .navbar-header
+      = link_to "Главная", manager_welcome_index_path, class: "navbar-brand", title: "Romhi"
+      -#= link_to image_tag('logo.png', style: "margin-top: -14px; width: 100px;"), "/", class: "navbar-brand", title: "Aza Fruit"
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav
+        - if user_signed_in?
+          -if current_user.admin?
+            %li.dropdown
+              = link_to "#", :class => "dropdown-toggle", "data-toggle" => "dropdown" do
+                Админ
+                %b.caret
+              %ul.dropdown-menu
+                %li= link_to "Добровольцы", admin_volunteers_path
+                %li= link_to "Назначение добровольцев", managing_admin_vacancies_path
+                %li= link_to "Переписка", admin_messages_path
+                %li= link_to "Пользователи", admin_users_path
+          %li.dropdown
+            = link_to "#", :class => "dropdown-toggle", "data-toggle" => "dropdown" do
+              Справочники
+              %b.caret
+            %ul.dropdown-menu
+
+              %li= link_to "Вакансии", admin_vacancies_path
+              %li= link_to "Города", admin_cities_path
+              %li= link_to "Документы", admin_documents_path
+              %li= link_to "Назначения", admin_responsibilities_path
+              %li= link_to "Области", admin_regions_path
+              %li= link_to "Собрания", admin_congregations_path
+
+
+      = render :partial => "layouts/user_bar"
+
+

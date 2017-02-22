@@ -1,0 +1,20 @@
+%h1 Добавить пользователя
+
+= simple_form_for [:admin, @user], :html => { :id => "user_form", :class => 'vertical-forml', :role => "form" } do |f|
+  = f.input :last_name, label: "Фамилия", autofocus: true
+  = f.input :first_name, label: "Имя"
+  = f.input :phone, label: "Телефон"
+  = f.input :email, label: "EMAIL"
+  = f.input :password, label: "Пароль"
+  = f.input :password_confirmation, label: "Подтверждение пароль"
+
+  = f.submit "Сохранить", class: "btn btn-primary"
+  = link_to "Отмена", admin_users_path, class: "btn btn-default"
+
+
+:javascript
+
+  $(document).ready(function(){
+    $("#user_phone").mask("(999) 999-9999");
+  });
+

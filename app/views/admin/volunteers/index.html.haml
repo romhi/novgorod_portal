@@ -1,0 +1,95 @@
+.top-right-actions
+  = simple_form_for :volunteer, url: "/admin/volunteers", method: :get, html: { style: "display: inline-block;", class: "form-inline" } do |f|
+    = f.input :vacancy, label: false, collection: {"ВСЕ": nil, "С НАЗНАЧЕНИЕМ": 1, "БЕЗ НАЗНАЧЕНИЯ": 2}, include_blank: false, selected: @vacancy
+    = f.input :order, label: false, collection: [["ПО ФАМИЛИИ", "last_name"], ["ПО СОБРАНИЮ", "congregations.name"]], include_blank: false, selected: @order
+    = f.input :congregation_id, label: false, collection: Congregation.order(:name), label_method: :full_info, value_method: :id, include_blank: "<ВЫБРАТЬ СОБРАНИЕ>", selected: @congregation_id
+    = f.input :part, label: false, input_html: { value: "#{@part}" }
+    = f.submit "Найти", class: "btn btn-default"
+
+
+%h1 Добровольцы (#{@volunteers.count})
+
+%table.table.table-bordered
+  %tr
+    %th.td-18
+      \#
+    %th.td-18
+    %th
+      Сведения
+    %th
+      Время
+    %th
+      08
+    %th
+      17
+    %th
+      УЛ
+    %th
+      Авт
+    %th
+      Телефон
+    -#%th
+    -#  EMAIL
+    -#%th
+    -#  Комментарии
+    %th
+      Время и место служения
+    %th.td-18
+  - @volunteers.each_with_index do |volunteer, index|
+    %tr
+      %td
+        = index + 1
+      %td
+        = edit_link [:edit,:admin , volunteer]
+      %td
+        = volunteer.full_info
+      %td.td-nowrap
+        = convenient_time(volunteer)
+      %td.td-center.pointer(title="Будет к 8:00")
+        = yes_or_no_icon(volunteer.will_be_since_8)
+      %td.td-center.pointer(title="Будет до 17:00")
+        = yes_or_no_icon(volunteer.will_be_until_17)
+      %td.td-center.pointer(title="Может на улице")
+        = yes_or_no_icon(volunteer.outdoor)
+      %td.td-center.pointer(title="Автомобилист")
+        = yes_or_no_icon(volunteer.car)
+      %td.td-nowrap
+        = volunteer.phone
+      -#%td
+      -#  = volunteer.email
+      -#%td
+      -#  = volunteer.comment
+      %td
+        = volunteer.vacancy.try(:full_info).try(:html_safe)
+      %td
+        = delete_link [:admin, volunteer]
+
+= link_to "Добавить", new_admin_volunteer_path, class: "btn btn-primary"
+= link_to "Печать", print_admin_volunteers_path, target: "_blank", class: "btn btn-default"
+= link_to "Печать схемы", print_managing_admin_volunteers_path, target: "_blank", class: "btn btn-default"
+
+= form_tag load_xls_admin_volunteers_path, :multipart => true, :id => "upload_form", :style => "margin: 20px 0 10px 0" do
+  %div(style="background-color: lightgray; border-radius: 5px; padding: 15px;     height: 70px;")
+    = select_tag :congregation_id, options_from_collection_for_select(Congregation.all, :id, :full_info)
+    %span#file_name
+      Файл не выбран
+    %span(style="float: right;")
+      %div(style="margin-top: -7px;")
+        %span.btn.btn-success.fileinput-button.pointer(style="margin-right: 10px;")
+          %i.fa.fa-plus
+          %span Выбрать...
+          = file_field_tag :file, id: "file"
+        %span.fileinput-button.pointer
+          = submit_tag "Отправить", class: 'btn btn-primary'
+
+:javascript
+
+  $(document).ready(function(){
+
+    $("#file").change(function (e) {
+      var file_name = this.files[0].name;
+      $("#file_name").html(file_name);
+
+    });
+
+  });

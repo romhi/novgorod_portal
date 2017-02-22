@@ -1,0 +1,22 @@
+%div(style="width: 800px; margin: 100px auto")
+  .panel.panel-info
+    .panel-heading
+      Вход
+    .panel-body
+      = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "vertical_form" }) do |f|
+        = f.input :email, label: "Email", required: true, autofocus: true
+        = f.input :first_name, label: "Имя", required: true
+        = f.input :last_name, label: "Фамилия", required: true
+        = f.input :phone, label: "Телефон", required: true
+        - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+          %p
+            Currently waiting confirmation for: #{resource.unconfirmed_email}
+        = f.input :password, label: "Новый пароль", autocomplete: "off", hint: "Пропустите поле, если не хотите его изменить", required: false
+        = f.input :password_confirmation, label: "Новый пароль еще раз", hint: "Пропустите поле, если не хотите его изменить", required: false
+        = f.input :current_password, label: "Старый пароль", hint: "Введите пароль, чтобы изменения вступили в силу", required: true
+        = f.submit "Обновить", class: "btn btn-primary"
+        = link_to "Вернуться", root_path, class: "btn btn-default"
+    .panel-footer
+      %h3 Удалить мой аккаунт
+      %p
+        Не довольны сайтом? #{link_to "Удалить аккаунт", registration_path(resource_name), data: { confirm: "Точно удалить аккаунт?" }, method: :delete}

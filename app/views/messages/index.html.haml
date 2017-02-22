@@ -1,0 +1,17 @@
+%h1 Переписка с администратором
+
+- @messages.each do |message|
+  %div(style="margin-top: 10px; border-radius: 10px; padding: 20px; background-color: #{message.author.admin? ? 'lightyellow' : 'lightgrey'}")
+    %fieldset
+      %h4
+        = message.author.admin? ? 'Администратор' : message.author.full_info
+        \:
+      %div
+        = message.message
+
+%div(style="margin-top: 15px")
+  = simple_form_for @message, :html => { class: "horizontal_form" } do |f|
+    = f.input :author_id,  input_html: {value: current_user.id}, as: :hidden
+    = f.input :message, label: "Сообщение", as: :text
+
+    = f.button :submit, "Отпрвить", class: 'btn btn-primary'

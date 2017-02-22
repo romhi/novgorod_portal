@@ -1,0 +1,6 @@
+= simple_form_for [:admin, @document], :html => { class: "horizontal_form" } do |f|
+  = f.input :title, label: "Заголовок", autofocus: true
+  = f.input :text, label: "Содержание", as: :wysihtml5
+
+  = f.button :submit, "Сохранить", class: 'btn btn-primary'
+  = link_to "Отмена", admin_documents_path, class: "btn btn-default"
