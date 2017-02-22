@@ -10,9 +10,6 @@ Rails.application.routes.draw do
   #   get "logout" => "devise/sessions#destroy", :as => :destroy_user_session
   #   get "register" => "devise/registrations#new", :as => :new_user_registration
   # end
-  resources :cities
-  resources :pages
-  resources :messages
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -36,31 +33,6 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users
-    resources :regions
-    resources :responsibilities
-    resources :congregations
-    resources :documents do
-      member do
-        get "print_document"
-      end
-    end
-    resources :cities
-    resources :messages
-    resources :vacancies do
-      member do
-        post 'add_volunteer'
-      end
-      collection do
-        get "managing"
-      end
-    end
-    resources :volunteers do
-      collection do
-        get "print"
-        get "print_managing"
-        post 'load_xls'
-      end
-    end
   end
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
