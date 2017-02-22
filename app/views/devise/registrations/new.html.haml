@@ -8,7 +8,6 @@
         = f.input :first_name, label: "Имя", required: true
         = f.input :email, label: "Email", required: true
         = f.input :phone, label: "Телефон", required: true
-        = f.input :congregation_id, label: "Собрание", collection: Congregation.order(:number), label_method: :number, value_mathod: :id, include_blank: false
         = f.input :password, label: "Пароль", required: true
         = f.input :password_confirmation, label: "Повторить пароль", required: true
         = f.submit 'Регистрация', :id => "submit_button", :class => "btn btn-primary"

@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   belongs_to :city
   belongs_to :congregation
   has_many :messages
-  validates_presence_of :first_name, :last_name, :email, :phone, :congregation_id
+  validates_presence_of :first_name, :last_name, :email, :phone
   scope :managers, ->{ where("manager = 1").order(:first_name)}
   scope :admins, -> { where("admin = true") }
 
@@ -30,11 +30,7 @@ class User < ActiveRecord::Base
   end
 
   def full_info
-    "#{congregation.city.region.name[0]}.обл. #{city_and_congregation} #{last_name.strip} #{first_name[0]}"
-  end
-
-  def city_and_congregation
-    congregation.city.name == congregation.name ? "#{congregation.name}" : "#{congregation.city.name} #{congregation.name}"
+    "#{last_name.strip} #{first_name[0]}"
   end
 
 end
